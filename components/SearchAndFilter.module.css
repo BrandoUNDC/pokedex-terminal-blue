@@ -6,10 +6,14 @@
   border-bottom: 1px solid var(--border);
 }
 
-.search,
-.filter {
+.searchWrapper {
+  position: relative;
   width: 100%;
-  padding: 0.75rem 1rem;
+}
+
+.search {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   font-family: var(--font-mono), monospace;
   font-size: 0.75rem;
   background: var(--surface);
@@ -20,15 +24,34 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.search:focus,
-.filter:focus {
+.search:focus {
   outline: none;
-  border-color: var(--neon-cyan);
+  border-color: var(--accent);
   box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
 }
 
 .search::placeholder {
   color: var(--text-dim);
+}
+
+.clearBtn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  transition: color 0.15s;
+}
+
+.clearBtn:hover {
+  color: var(--text);
 }
 
 .filter {

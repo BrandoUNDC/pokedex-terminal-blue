@@ -36,8 +36,8 @@
 }
 
 .active::before {
-  background: var(--neon-blue);
-  box-shadow: 0 0 10px var(--neon-blue);
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .number {

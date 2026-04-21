@@ -1,0 +1,7 @@
+:root {
+  /* Paleta de acento — UI identity */
+  --accent:        #3B82F6;  /* fuerte — botones, borders activos */
+  --accent-hover:  #2563EB;  /* hover / pressed */
+  --accent-subtle: #1E3A5F;  /* fills, backgrounds suaves */
+  --accent-text:   #60A5FA;  /* texto legible sobre fondo oscuro */
+}

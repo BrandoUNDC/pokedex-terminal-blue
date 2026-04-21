@@ -32,11 +32,11 @@
 }
 
 .logoAccent {
-  color: var(--neon-cyan);
+  color: var(--accent);
   font-size: 0.6rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  text-shadow: 0 0 10px var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
 .logoText {
@@ -48,8 +48,27 @@
 }
 
 .logoText span {
-  color: var(--neon-blue);
-  text-shadow: 0 0 20px var(--neon-blue);
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent);
+}
+
+.logoBtn {
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.logoBtn span {
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent);
 }
 
 .generationSelector {
@@ -78,10 +97,10 @@
 }
 
 .genBtn.active {
-  color: var(--neon-cyan);
-  background: rgba(0, 240, 255, 0.1);
-  border-color: var(--neon-cyan);
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  color: var(--accent);
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--accent);
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
 .status {
@@ -142,7 +161,7 @@
 }
 
 .loading {
-  color: var(--neon-cyan);
+  color: var(--accent);
   animation: flicker 1.5s infinite;
 }
 
@@ -282,50 +301,104 @@
   100% { opacity: 0.5; }
 }
 
-@media (max-width: 900px) {
-  .header {
-    padding: 0.75rem 1rem;
-  }
-
-  .headerContent {
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .logo {
-    order: 1;
-  }
-
-  .status {
-    order: 2;
-  }
-
-  .generationSelector {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-  }
-
+@media (max-width: 767px) {
   .main {
     flex-direction: column;
+    position: relative;
+    flex: 1;
+    overflow: hidden;
   }
 
   .sidebar {
+    flex: 1;
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid var(--border);
-    max-height: 280px;
+    border-bottom: none;
+    max-height: none;
+    display: none;
+    overflow: hidden;
   }
 
   .pokemonList {
-    max-height: 220px;
+    max-height: none;
+    flex: 1;
+    overflow-y: auto;
   }
 
   .detail {
+    display: none;
+    width: 100vw;
+    min-height: 100dvh;
     padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+
+  .showList .sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .showDetail .detail {
+    display: flex;
+    flex-direction: column;
   }
 
   .skeletonBody {
     grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 0.5rem 1rem;
+  }
+
+  .headerContent {
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .logoText {
+    font-size: 0.9rem;
+  }
+
+  .logoAccent {
+    display: none;
+  }
+
+  .logo {
+    flex-shrink: 0;
+  }
+
+  .generationSelector {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.25rem;
+    flex-shrink: 0;
+    order: 0;
+  }
+
+  .generationSelector::-webkit-scrollbar {
+    display: none;
+  }
+
+  .genBtn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .showDetail .sidebar {
+    display: none;
   }
 }

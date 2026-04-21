@@ -48,7 +48,7 @@ pokedex/
 ├── app/
 │   ├── page.tsx          # Main component — fetching, state, virtual scroll
 │   ├── constants.ts      # GENERATIONS, TYPE_CHART — static, outside component
-│   ├── globals.css       # CSS variables including --neon-blue accent
+│   ├── globals.css       # CSS variables, imports tokens.css
 │   └── layout.tsx        # Font configuration
 ├── components/
 │   ├── PokemonDetail.tsx  # Detail panel

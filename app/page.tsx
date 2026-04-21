@@ -48,6 +48,7 @@ export default function Home() {
   const [movesDetails, setMovesDetails] = useState<Map<string, MoveDetailResponse>>(new Map());
   const [movesLoading, setMovesLoading] = useState(false);
   const [typesCache, setTypesCache] = useState<Map<number, PokemonType[]>>(new Map());
+  const [mobileView, setMobileView] = useState<'list' | 'detail'>('list');
 
   const listRef = useRef<HTMLDivElement>(null);
   const detailRef = useRef<HTMLDivElement>(null);
@@ -131,8 +132,7 @@ export default function Home() {
         const id = parseInt(p.url.split("/").filter(Boolean).pop() || "0", 10);
         return id;
       })
-      .filter((id: number) => !typesFetchedRef.current.has(id))
-      .slice(0, 30);
+      .filter((id: number) => !typesFetchedRef.current.has(id));
 
     if (idsToFetch.length === 0) return;
 
@@ -215,10 +215,14 @@ export default function Home() {
 
   const prefetchNeighbors = useCallback((id: number) => {
     const prefetch = (url: string) => fetch(url).catch(() => {});
-    prefetch(`https://pokeapi.co/api/v2/pokemon/${id - 1}`);
-    prefetch(`https://pokeapi.co/api/v2/pokemon/${id + 1}`);
-    prefetch(`https://pokeapi.co/api/v2/pokemon-species/${id - 1}`);
-    prefetch(`https://pokeapi.co/api/v2/pokemon-species/${id + 1}`);
+    if (id > 1) {
+      prefetch(`https://pokeapi.co/api/v2/pokemon/${id - 1}`);
+      prefetch(`https://pokeapi.co/api/v2/pokemon-species/${id - 1}`);
+    }
+    if (id < 1025) {
+      prefetch(`https://pokeapi.co/api/v2/pokemon/${id + 1}`);
+      prefetch(`https://pokeapi.co/api/v2/pokemon-species/${id + 1}`);
+    }
   }, []);
 
   useEffect(() => {
@@ -299,6 +303,7 @@ export default function Home() {
     const idx = filteredPokemon.findIndex(p => p.id === pokemon.id);
     scrollToIndex(idx);
     setSelectedId(pokemon.id);
+    setMobileView('detail');
   }, [filteredPokemon, scrollToIndex]);
 
   const handleNavigate = useCallback((id: number) => {
@@ -314,6 +319,18 @@ export default function Home() {
     setSelectedId(id);
     prefetchPokemon(id);
   }, [filteredPokemon, prefetchPokemon, scrollToIndex]);
+
+  const handleBackToList = useCallback(() => {
+    setMobileView('list');
+  }, []);
+
+  const handleLogoClick = useCallback(() => {
+    setSelectedId(1);
+    setActiveGeneration(1);
+    setSearchQuery("");
+    setMobileView('list');
+    setMovesDetails(new Map());
+  }, []);
 
   const { currentIndex, prevPokemonId, nextPokemonId } = useMemo(() => {
     const idx = filteredPokemon.findIndex(p => p.id === selectedId);
@@ -346,13 +363,19 @@ export default function Home() {
   const isLoading = pokemonLoading || movesLoading;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${mobileView === 'list' ? styles.showList : styles.showDetail}`}>
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.logo}>
             <span className={styles.logoAccent}>v3.0</span>
             <h1 className={styles.logoText}>
-              POKÉ<span>DEX</span>
+              <button
+                className={styles.logoBtn}
+                onClick={handleLogoClick}
+                aria-label="Return to home"
+              >
+                POKÉ<span>DEX</span>
+              </button>
             </h1>
           </div>
 
@@ -459,6 +482,7 @@ export default function Home() {
               nextPokemonId={nextPokemonId}
               onNavigate={handleNavigate}
               onEvolutionClick={handleEvolutionClick}
+              onBackToList={handleBackToList}
               evolutionChain={evolutionChain}
               moves={moves}
               weaknesses={weaknesses}

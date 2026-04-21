@@ -16,6 +16,7 @@
 
 .barContainer {
   flex: 1;
+  min-width: 0;
   height: 6px;
   background: rgba(255, 255, 255, 0.08);
   position: relative;
@@ -24,8 +25,8 @@
 
 .barFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue));
-  box-shadow: 0 0 8px var(--neon-blue);
+  background: linear-gradient(90deg, #1D4ED8 0%, #3B82F6 60%, #EC4899 100%);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
   transition: width 0.4s ease-out;
   position: relative;
 }
@@ -54,7 +55,9 @@
   font-family: var(--font-mono), monospace;
   font-size: 0.7rem;
   font-weight: 700;
-  width: 28px;
+  min-width: 36px;
+  flex-shrink: 0;
+  overflow: visible;
   text-align: right;
   font-variant-numeric: tabular-nums;
   color: var(--neon-green);

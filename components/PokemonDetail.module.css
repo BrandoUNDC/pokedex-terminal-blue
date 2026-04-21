@@ -44,6 +44,10 @@
   box-shadow: 0 0 15px var(--type-color);
 }
 
+.backBtn {
+  display: none;
+}
+
 .navButtons {
   display: flex;
   gap: 0.5rem;
@@ -53,6 +57,7 @@
 .navBtn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   font-family: var(--font-mono), monospace;
@@ -64,6 +69,7 @@
   cursor: pointer;
   transition: all 0.15s;
   letter-spacing: 0.05em;
+  flex: 1;
 }
 
 .navBtn:hover:not(:disabled) {
@@ -75,10 +81,6 @@
 .navBtn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
-}
-
-.navBtn:last-child {
-  margin-left: auto;
 }
 
 .number {
@@ -299,7 +301,7 @@
 }
 
 .evolutionSprite.current {
-  border-color: var(--neon-cyan);
+  border-color: var(--accent);
   box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
@@ -376,8 +378,8 @@
   font-family: var(--font-mono), monospace;
   font-size: 0.7rem;
   background: transparent;
-  border: 1px solid var(--neon-blue);
-  color: var(--neon-blue);
+  border: 1px solid var(--accent);
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: all 0.2s;
@@ -507,6 +509,24 @@
     order: 2;
   }
 
+  .navButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .navBtn {
+    flex: unset;
+    min-width: 0;
+    width: 100%;
+    height: 52px;
+    font-size: 0.7rem;
+    box-sizing: border-box;
+  }
+
   .spriteWrapper {
     max-width: 200px;
     margin: 0 auto;
@@ -519,5 +539,260 @@
 
   .name {
     font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: visible;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .backBtn {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 16px;
+    background: transparent;
+    border: none;
+    color: var(--accent-text);
+    font-family: var(--font-mono), monospace;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .backBtn:active {
+    opacity: 0.7;
+  }
+
+  .header {
+    padding: 0 16px;
+    position: relative;
+  }
+
+  .header::after {
+    width: 60px;
+  }
+
+  .navButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .navBtn {
+    flex: unset;
+    min-width: 0;
+    width: 100%;
+    height: 52px;
+    font-size: 0.7rem;
+    box-sizing: border-box;
+  }
+
+  .name {
+    font-size: clamp(22px, 9vw, 48px);
+    letter-spacing: -0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 16px env(safe-area-inset-bottom, 32px);
+    box-sizing: border-box;
+  }
+
+  .leftColumn {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rightColumn {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .spriteSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .spriteWrapper {
+    max-width: 180px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .sprite {
+    width: 140px;
+    height: 140px;
+  }
+
+  .types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .measurements {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .weaknesses {
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .weaknessGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .abilityList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .evolution {
+    margin: 0 -16px;
+    padding: 1rem 16px;
+    width: calc(100% + 32px);
+    max-width: calc(100vw);
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .evolution::-webkit-scrollbar {
+    display: none;
+  }
+
+  .evolutionChain {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    padding-bottom: 8px;
+  }
+
+  .evolutionChain::-webkit-scrollbar {
+    display: none;
+  }
+
+  .evolutionStage {
+    flex-shrink: 0;
+  }
+
+  .movesCard {
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .movesWrapper {
+    margin: 0 -16px;
+    padding: 0 16px;
+    width: calc(100% + 32px);
+    max-width: calc(100vw);
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .movesWrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .movesTable {
+    min-width: 100%;
+  }
+
+  .movesHeader {
+    min-width: 100%;
+  }
+
+  .moveRow {
+    min-width: 100%;
+  }
+
+  .sectionTitle {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--accent-text);
+  }
+
+  .flavorText {
+    font-family: var(--font-serif), serif;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--text-dim);
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+
+  .statsCard,
+  .abilitiesCard {
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .description {
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .description .flavorText {
+    padding: 0;
   }
 }

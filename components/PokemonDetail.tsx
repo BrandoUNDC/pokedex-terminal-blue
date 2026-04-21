@@ -17,6 +17,7 @@ interface PokemonDetailProps {
   nextPokemonId: number | null;
   onNavigate: (id: number) => void;
   onEvolutionClick: (id: number) => void;
+  onBackToList?: () => void;
   evolutionChain?: EvolutionStage[];
   moves?: MoveInfo[];
   weaknesses?: Weakness[];
@@ -66,6 +67,7 @@ export const PokemonDetail = memo(
     nextPokemonId,
     onNavigate,
     onEvolutionClick,
+    onBackToList,
     evolutionChain = [],
     moves = [],
     weaknesses = [],
@@ -123,6 +125,11 @@ export const PokemonDetail = memo(
         className={`${styles.card} ${isLoading ? styles.loading : ""} ${styles.enter}`}
         style={{ "--type-color": typeColor, "--type-bg": typeBgColor } as React.CSSProperties}
       >
+        {onBackToList && (
+          <button className={styles.backBtn} onClick={onBackToList}>
+            ← Pokédex
+          </button>
+        )}
         <header className={styles.header}>
           <div className={styles.navButtons}>
             <button
@@ -284,34 +291,36 @@ export const PokemonDetail = memo(
                   <div className={styles.moveSkeleton} />
                 </div>
               ) : moves.length > 0 ? (
-                <div className={styles.movesTable}>
-                  <div className={styles.movesHeader}>
-                    <span>LV</span>
-                    <span>MOVE</span>
-                    <span>TYPE</span>
-                    <span>POW</span>
-                    <span>ACC</span>
-                  </div>
-                  {moves.map((move) => (
-                    <div key={move.name} className={styles.moveRow}>
-                      <span className={styles.moveLevel}>
-                        {move.level_learned_at > 0 ? move.level_learned_at : "—"}
-                      </span>
-                      <span className={styles.moveName}>{move.name}</span>
-                      {move.type && TYPE_COLORS[move.type] ? (
-                        <span
-                          className={styles.moveType}
-                          style={{ backgroundColor: TYPE_COLORS[move.type] }}
-                        >
-                          {move.type.substring(0, 3).toUpperCase()}
-                        </span>
-                      ) : (
-                        <span className={styles.moveType}>—</span>
-                      )}
-                      <span className={styles.movePower}>{move.power ?? "—"}</span>
-                      <span className={styles.moveAcc}>{move.accuracy ?? "—"}</span>
+                <div className={styles.movesWrapper}>
+                  <div className={styles.movesTable}>
+                    <div className={styles.movesHeader}>
+                      <span>LV</span>
+                      <span>MOVE</span>
+                      <span>TYPE</span>
+                      <span>POW</span>
+                      <span>ACC</span>
                     </div>
-                  ))}
+                    {moves.map((move) => (
+                      <div key={move.name} className={styles.moveRow}>
+                        <span className={styles.moveLevel}>
+                          {move.level_learned_at > 0 ? move.level_learned_at : "—"}
+                        </span>
+                        <span className={styles.moveName}>{move.name}</span>
+                        {move.type && TYPE_COLORS[move.type] ? (
+                          <span
+                            className={styles.moveType}
+                            style={{ backgroundColor: TYPE_COLORS[move.type] }}
+                          >
+                            {move.type.substring(0, 3).toUpperCase()}
+                          </span>
+                        ) : (
+                          <span className={styles.moveType}>—</span>
+                        )}
+                        <span className={styles.movePower}>{move.power ?? "—"}</span>
+                        <span className={styles.moveAcc}>{move.accuracy ?? "—"}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ) : (
                 <p className={styles.noMoves}>No level-up moves available</p>
