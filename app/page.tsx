@@ -136,26 +136,42 @@ export default function Home() {
 
     if (idsToFetch.length === 0) return;
 
-    const fetchTypes = async () => {
-      const newTypes: { id: number; types: PokemonType[] }[] = [];
-      for (const id of idsToFetch) {
-        try {
-          const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-          const data: Pokemon = await res.json();
-          newTypes.push({ id, types: data.types });
-          typesFetchedRef.current.add(id);
-        } catch {}
-      }
-      if (newTypes.length > 0) {
-        setTypesCache(prev => {
-          const next = new Map(prev);
-          newTypes.forEach(({ id, types }) => next.set(id, types));
-          return next;
-        });
+    const BATCH_SIZE = 20;
+
+    const fetchBatch = async (batch: number[]) => {
+      const results = await Promise.all(
+        batch.map(async (id) => {
+          try {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            if (!res.ok) return null;
+            const data: Pokemon = await res.json();
+            return { id, types: data.types };
+          } catch {
+            return null;
+          }
+        })
+      );
+      return results.filter((r): r is { id: number; types: PokemonType[] } => r !== null);
+    };
+
+    const fetchAll = async () => {
+      for (let i = 0; i < idsToFetch.length; i += BATCH_SIZE) {
+        const batch = idsToFetch.slice(i, i + BATCH_SIZE);
+        const results = await fetchBatch(batch);
+        if (results.length > 0) {
+          setTypesCache(prev => {
+            const next = new Map(prev);
+            results.forEach(({ id, types }) => {
+              typesFetchedRef.current.add(id);
+              next.set(id, types);
+            });
+            return next;
+          });
+        }
       }
     };
 
-    fetchTypes();
+    fetchAll();
   }, [listData]);
 
   useEffect(() => {
