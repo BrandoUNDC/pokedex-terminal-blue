@@ -1,142 +1,331 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
+.container {
   display: flex;
-  flex: 1;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, #1a0a2e 0%, transparent 50%),
+    var(--bg);
+}
+
+.header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+.headerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  gap: 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.logoAccent {
+  color: var(--neon-cyan);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.logoText {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.logoText span {
+  color: var(--neon-blue);
+  text-shadow: 0 0 20px var(--neon-blue);
+}
+
+.generationSelector {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--surface);
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+}
+
+.genBtn {
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.genBtn:hover {
+  color: var(--text);
+}
+
+.genBtn.active {
+  color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: pulse 2s infinite;
+}
+
+.statusText {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .main {
   display: flex;
   flex: 1;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  overflow: hidden;
 }
 
-.intro {
+.sidebar {
+  width: 300px;
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.pokemonList {
+  flex: 1;
+  overflow-y: auto;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.loading,
+.empty {
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
+.loading {
+  color: var(--neon-cyan);
+  animation: flicker 1.5s infinite;
 }
 
-.ctas {
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.detail {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.placeholder {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  justify-content: center;
+  height: 100%;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.skeleton {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.skeletonNav {
+  display: flex;
+  gap: 0.5rem;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.skeletonBtn {
+  width: 80px;
+  height: 36px;
+  background: var(--surface);
+  animation: shimmer 1.5s infinite;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.skeletonHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
 }
 
-@media (prefers-color-scheme: dark) {
+.skeletonNumber {
+  width: 80px;
+  height: 16px;
+  background: var(--surface);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonName {
+  width: 280px;
+  height: 56px;
+  background: var(--surface);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonGenus {
+  width: 140px;
+  height: 20px;
+  background: var(--surface);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonBody {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+
+.skeletonLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeletonSprite {
+  height: 200px;
+  background: var(--surface);
+  animation: shimmer 1.5s infinite;
+  border: 1px solid var(--border);
+}
+
+.skeletonTypes {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skeletonType {
+  width: 70px;
+  height: 28px;
+  background: var(--surface);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonRight {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeletonSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.skeletonStat {
+  height: 24px;
+  background: var(--border);
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonAbility {
+  height: 32px;
+  width: 120px;
+  background: var(--border);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.5; }
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0.75rem 1rem;
+  }
+
+  .headerContent {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
   .logo {
-    filter: invert();
+    order: 1;
   }
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+  .status {
+    order: 2;
+  }
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+  .generationSelector {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+  .main {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: 280px;
+  }
+
+  .pokemonList {
+    max-height: 220px;
+  }
+
+  .detail {
+    padding: 1rem;
+  }
+
+  .skeletonBody {
+    grid-template-columns: 1fr;
   }
 }

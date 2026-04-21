@@ -1,0 +1,523 @@
+.card {
+  max-width: 1100px;
+  margin: 0 auto;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease-out;
+}
+
+.card.enter {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100px;
+  height: 2px;
+  background: var(--type-color);
+  box-shadow: 0 0 15px var(--type-color);
+}
+
+.navButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+}
+
+.navBtn:hover:not(:disabled) {
+  color: var(--type-color);
+  border-color: var(--type-color);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navBtn:last-child {
+  margin-left: auto;
+}
+
+.number {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--type-color);
+  margin-bottom: 0.25rem;
+  text-shadow: 0 0 10px var(--type-color);
+}
+
+.name {
+  font-family: var(--font-display), sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+  text-shadow:
+    0 0 30px rgba(255, 255, 255, 0.1),
+    2px 2px 0 var(--type-color);
+}
+
+.genus {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.spriteSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.spriteWrapper {
+  background: radial-gradient(
+    ellipse at 60% 40%,
+    var(--type-bg) 0%,
+    var(--bg) 75%
+  );
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.spriteWrapper:hover {
+  border-color: var(--type-color);
+}
+
+.spriteGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--type-color) 20%, transparent) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.sprite {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  position: relative;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.spriteWrapper:hover .sprite {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 30px color-mix(in srgb, var(--type-color) 50%, transparent));
+}
+
+.types {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.measurements {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.measurement {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+}
+
+.measurement svg {
+  opacity: 0.5;
+}
+
+.measurementValue {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.weaknesses {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem;
+}
+
+.weaknessGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.weaknessItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.weaknessBadge {
+  width: 28px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #000;
+  border-radius: 2px;
+}
+
+.weaknessMult {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--neon-red, #ff4444);
+  text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
+}
+
+.evolution {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem;
+}
+
+.evolutionChain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.evolutionStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+}
+
+.evolutionSprite {
+  width: 56px;
+  height: 56px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.evolutionSprite:hover {
+  border-color: var(--type-color);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.evolutionSprite:active {
+  transform: scale(1.05);
+}
+
+.evolutionSprite.current {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.evolutionImg {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.evolutionSprite img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.evolutionName {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: var(--text);
+  letter-spacing: 0.03em;
+}
+
+.evolutionLevel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.55rem;
+  color: var(--text-dim);
+}
+
+.evolutionArrow {
+  color: var(--text-dim);
+  margin: 0 0.25rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--neon-yellow);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  text-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+}
+
+.statsCard,
+.abilitiesCard,
+.movesCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.abilities {
+  display: flex;
+  flex-direction: column;
+}
+
+.abilityList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.abilityTag {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  background: transparent;
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.abilityTag:hover {
+  background: rgba(191, 0, 255, 0.1);
+  box-shadow: 0 0 15px rgba(191, 0, 255, 0.3);
+}
+
+.abilityTag.hidden {
+  border-color: var(--text-dim);
+  color: var(--text-dim);
+}
+
+.description {
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.flavorText {
+  font-family: var(--font-serif), serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.movesTable {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.movesHeader {
+  display: grid;
+  grid-template-columns: 40px 1fr 50px 40px 40px;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.moveRow {
+  display: grid;
+  grid-template-columns: 40px 1fr 50px 40px 40px;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  padding: 0.4rem 0;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background 0.1s;
+}
+
+.moveRow:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.moveLevel,
+.movePower,
+.moveAcc {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.moveName {
+  text-transform: capitalize;
+  color: var(--text);
+}
+
+.moveType {
+  width: 36px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #000;
+  border-radius: 2px;
+}
+
+.movesLoading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.moveSkeleton {
+  height: 32px;
+  background: var(--border);
+  animation: shimmer 1.5s infinite;
+}
+
+.noMoves {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 1rem 0;
+  text-align: center;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.4; }
+}
+
+@media (max-width: 900px) {
+  .body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .leftColumn {
+    order: 1;
+  }
+
+  .rightColumn {
+    order: 2;
+  }
+
+  .spriteWrapper {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .sprite {
+    width: 120px;
+    height: 120px;
+  }
+
+  .name {
+    font-size: 1.8rem;
+  }
+}

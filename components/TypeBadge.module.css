@@ -1,0 +1,33 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+  border-radius: 2px;
+}
+
+.small {
+  min-width: 18px;
+  height: 18px;
+  font-size: 0.55rem;
+  padding: 0 2px;
+}
+
+.medium {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+
+.large {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+}
+
+.tag {
+  border-radius: 0;
+}
